@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apollonia EMS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <header class="shell header">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <span class="logo-dot"></span>
+        </div>
+        <div>
+          <div class="brand-title">Apollonia EMS</div>
+          <div class="brand-subtitle">Employee Management System</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="refreshBtn" class="btn btn-ghost" type="button">
+          Refresh
+        </button>
+        <span id="statusPill" class="pill pill-muted">Connecting…</span>
+      </div>
+    </header>
+
+    <main class="shell main">
+      <section class="card hero">
+        <div>
+          <h1>CRUD, but make it clean.</h1>
+          <p class="muted">
+            Manage departments and employees in one place. Data is stored in
+            MongoDB and served through your Express API.
+          </p>
+        </div>
+        <div class="hero-metrics" aria-label="Summary">
+          <div class="metric">
+            <div class="metric-label">Departments</div>
+            <div id="deptCount" class="metric-value">—</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Employees</div>
+            <div id="empCount" class="metric-value">—</div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid">
+        <section class="card">
+          <div class="card-head">
+            <h2>Departments</h2>
+            <div class="card-head-right">
+              <input
+                id="deptSearch"
+                class="input input-sm"
+                placeholder="Search…"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <form id="deptCreateForm" class="form-row">
+            <input
+              id="deptName"
+              class="input"
+              placeholder="New department name"
+              required
+              minlength="2"
+              maxlength="80"
+              autocomplete="off"
+            />
+            <button class="btn btn-primary" type="submit">Add</button>
+          </form>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th class="th-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="deptTbody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Employees</h2>
+            <div class="card-head-right">
+              <select id="empFilterDept" class="input input-sm">
+                <option value="">All departments</option>
+              </select>
+            </div>
+          </div>
+
+          <form id="empCreateForm" class="form-grid">
+            <div class="field">
+              <label for="empFirstName">First name</label>
+              <input
+                id="empFirstName"
+                class="input"
+                placeholder="e.g. Alfred"
+                required
+                minlength="1"
+                maxlength="60"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="empLastName">Last name</label>
+              <input
+                id="empLastName"
+                class="input"
+                placeholder="e.g. Christensen"
+                required
+                minlength="1"
+                maxlength="60"
+                autocomplete="off"
+              />
+            </div>
+            <div class="field">
+              <label for="empDept">Department</label>
+              <select id="empDept" class="input" required>
+                <option value="" disabled selected>Select a department</option>
+              </select>
+            </div>
+            <div class="field field-actions">
+              <label class="sr-only" for="empSubmit">Create</label>
+              <button id="empSubmit" class="btn btn-primary" type="submit">
+                Add employee
+              </button>
+            </div>
+          </form>
+
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Employee</th>
+                  <th>Department</th>
+                  <th class="th-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="empTbody"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <dialog id="modal" class="modal">
+      <form id="modalForm" method="dialog" class="modal-card">
+        <div class="modal-head">
+          <div id="modalTitle" class="modal-title">Edit</div>
+          <button class="btn btn-ghost btn-icon" value="cancel" aria-label="Close">
+            ✕
+          </button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" value="cancel" type="submit">
+            Cancel
+          </button>
+          <button id="modalSave" class="btn btn-primary" value="default" type="submit">
+            Save
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
