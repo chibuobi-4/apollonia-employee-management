@@ -1,32 +1,47 @@
-# Apollonia Employee Management API
+# Apollonia Employee Management
 
-Simple employee management CRUD API for Apollonia Dental Practice, built with Node.js, Express, and MongoDB.
+Employee management CRUD app for Apollonia Dental Practice, built with **Node.js**, **Express**, **MongoDB (Mongoose)** and a small frontend dashboard.
 
-## Setup (local, without Docker)
+The backend exposes REST endpoints for employees and departments; the frontend (served at `/`) lets you do all CRUD operations from the browser.
 
-1. Make sure you have **Node.js** and **MongoDB** installed and running locally.
-2. In the project folder, create a `.env` file based on `.env.example`:
+**Live demo**: [`https://apollonia-employee-management.onrender.com`](https://apollonia-employee-management.onrender.com)
+
+---
+
+## Running locally (without Docker)
+
+1. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+2. **Configure environment**
+
+   Create a `.env` file based on `.env.example`:
 
    ```env
    PORT=3000
    MONGO_URI=mongodb://localhost:27017/apollonia
    ```
 
-3. Install dependencies (already done if you ran `npm install`):
+3. **Start the dev server (with auto‑reload)**
 
    ```bash
-   npm install
+   npm run dev
    ```
 
-4. Start the server:
+   Or run once:
 
    ```bash
    npm start
    ```
 
-5. The API will be available at `http://localhost:3000`.
+4. Open the app at `http://localhost:3000/`.
 
-## Setup with Docker
+---
+
+## Running with Docker
 
 1. Make sure you have **Docker** and **Docker Compose** installed.
 2. From the project folder, run:
@@ -35,7 +50,7 @@ Simple employee management CRUD API for Apollonia Dental Practice, built with No
    docker-compose up --build
    ```
 
-3. The API will be available at `http://localhost:3000`.
+3. The app will be available at `http://localhost:3000/`.
 
 MongoDB runs in a separate `mongo` container, and the app connects using:
 
@@ -43,9 +58,11 @@ MongoDB runs in a separate `mongo` container, and the app connects using:
 MONGO_URI=mongodb://mongo:27017/apollonia
 ```
 
-## Main Endpoints
+---
 
-- `GET /` – Basic health/info message.
+## API endpoints
+
+- `GET /` – Frontend dashboard (CRUD UI).
 
 ### Departments
 
